@@ -1,0 +1,174 @@
+<%- layout("/layouts/basic.ejs") %>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script>
+  const mapTokenKey = "<%= process.env.GOOGLE_MAP_API_KYE %>";
+  const coordinates = <%- JSON.stringify(listing.geometry.coordinates || [0, 0]) %>;
+</script>
+
+ 
+<body>
+  <div class="row mt-3">
+    <div class="col-8 offset-2">
+      <h3><b><%= listing.title %></b></h3>
+    </div>
+
+    <div class="col-6 offset-2">
+      <div class="card show-card listing-card">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top show-image"
+          alt="listing_image"
+        />
+        <div class="card-body">
+          <p class="card-text">
+            <i><b>@<%= listing.owner.username %></b></i>
+          </p>
+          <p class="card-text"><%= listing.description %></p>
+          <p class="card-text">
+            &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %>
+          </p>
+          <p class="card-text"><%= listing.location %></p>
+          <p class="card-text"><%= listing.country %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
+
+  <div class="btns mb-3">
+    <a
+      href="/listings/<%= listing._id %>/edit"
+      class="btn edit-btn add-btn col-1 offset-2"
+      style="color: white"
+    >
+      Edit
+    </a>
+    <form
+      action="/listings/<%= listing._id %>/delete?_method=DELETE"
+      method="post"
+    >
+      <button class="btn btn-dark delete-btn offset-4">Delete</button>
+    </form>
+  </div>
+  <% } %>
+
+  <div class="col-8 offset-2">
+    <% if(currUser){ %>
+    <hr />
+    <form
+      method="post"
+      action="/listings/<%= listing._id %>/reviews"
+      novalidate
+      class="needs-validation"
+    >
+      <h3>Leave a Review</h3>
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <fieldset class="starability-checkmark">
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+        <textarea
+          name="review[comment]"
+          id="comment"
+          placeholder="Add Comment"
+          class="form-control"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+
+      <div class="invalid-feedback">Pleace Add Valid Feedback for Review</div>
+      <div class="mt-3 mb-3">
+        <button type="submit" class="btn btn-outline-dark">Submit</button>
+      </div>
+    </form>
+
+    <% } %>
+   
+
+    <% if(listing.reviews.length > 0){ %>
+    <div class="row">
+      <hr />
+      <p><b> All Reviews</b></p>
+      <% for(review of listing.reviews){ %>
+      <div class="card col-5 mb-3 ms-3">
+        <div class="card-body">
+          <h4 class="card-title">@<%= review.author.username %></h4>
+          <p
+            class="starability-result card-text"
+            data-rating="<%= review.rating %>"
+          ></p>
+          <p class="card-subtitle mb-2 text-body-secondary">Date</p>
+          <p class="card-text"><%= review.comment %></p>
+        </div>
+
+        <form
+          method="post"
+          action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+        >
+          <% if(currUser && review.author.equals(currUser._id)){ %>
+          <button class="btn btn-outline-danger btn-sm mb-2" type="submit">
+            Delete
+          </button>
+          <% } %>
+        </form>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+    <div class="mb-3">
+      <hr>
+      <h4>Where you'll be</h4>
+      <div id="map"></div>
+    </div>
+    
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/js/map.js"></script>
+
+</body>
+

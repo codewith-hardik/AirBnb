@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenStreetMap with Leaflet.js</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 500px; /* मैप की ऊंचाई */
+      width: 100%;   /* मैप की चौड़ाई */
+    }
+  </style>
+</head>
+<body>
+  <h1>OpenStreetMap Example</h1>
+  <div id="map"></div> <!-- यहाँ मैप लोड होगा -->
+
+  <!-- Leaflet.js लाइब्रेरी -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // मैप को इनिशियलाइज़ करना
+    const map = L.map('map').setView([23.0225, 72.5714], 13); // अहमदाबाद, गुजरात के लिए Latitude और Longitude
+
+    // OpenStreetMap से टाइल्स जोड़ना
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // मैप पर एक मार्कर जोड़ना
+    L.marker([23.0225, 72.5714]).addTo(map)
+      .bindPopup('This is Ahmedabad!')
+      .openPopup();
+  </script>
+</body>
+</html>

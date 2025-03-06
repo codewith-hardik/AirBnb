@@ -1,0 +1,150 @@
+
+body{
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container{
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* footer  */
+
+.f-info-links a {
+    text-decoration: none;
+    color: black;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-socials a,
+.f-info-icon a {
+    color: #023047 !important;
+    width: 100%;
+    font-size: 1.1rem;
+    margin-left: 1rem;
+}
+
+.f-info-icon span {
+    font-size: small;
+}
+
+.f-settings {
+    font-size: small;
+    display: flex;
+    margin-right: 1rem;
+}
+
+.f-info-links {
+    margin-left: 1rem;
+}
+
+
+.f-info {
+    height: 5rem;
+    background-color: #ebebeb;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding-top: 1rem;
+
+}
+
+
+/* Cards */
+
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    /* margin-bottom: 1rem !important; */
+    object-fit: cover !important;
+    width: 100% !important;
+}
+
+
+.listing-link{
+    text-decoration: none;
+}
+
+/* card effect */
+
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.1;
+    background-color: white;
+}
+
+
+/* New listing  */
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+    width: 10rem !important;
+
+}
+/* Edit listing  */
+.edit-btn{
+    width:10rem !important;
+    width: 10rem !important;
+}
+ /* show lisging */
+
+.show-image{
+    width: 100vh !important;
+    height: 50vh !important;
+}
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+.btns{
+    display: flex;
+}
+
+.delete-btn{
+    width: 10rem !important;
+}
+
+/* Error ejs */
+
+.error-info{
+    font-size: larger !important;
+}
+
+
+/* maps  */
+
+#map {
+    height: 500px;
+    width: 100vh;
+}
